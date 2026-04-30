@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Григорий Попов | ГСО ЭКРОСХИМ</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      background: linear-gradient(145deg, #e9f0f5 0%, #d9e2ec 100%);
+      font-family: 'Inter', sans-serif;
+      color: #1a2a3f;
+      line-height: 1.5;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 30px 20px;
+    }
+
+    .business-card {
+      max-width: 1300px;
+      width: 100%;
+      background: #ffffff;
+      border-radius: 56px;
+      box-shadow: 0 30px 50px -20px rgba(0, 0, 0, 0.3);
+      overflow: hidden;
+    }
+
+    .brand-strip {
+      background: #0f2c39;
+      padding: 24px 32px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .company img {
+      height: 92px !important;
+      width: auto;
+      vertical-align: middle;
+      display: block;
+      margin: 0 auto;
+    }
+
+    @media (max-width: 650px) {
+      .company img { height: 68px !important; }
+    }
+
+    .nav-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      padding: 18px 20px;
+      background: #f8fbfd;
+      border-bottom: 1px solid #e2edf2;
+      flex-wrap: wrap;
+    }
+
+    .nav-btn {
+      background: #eef3f7;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 60px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: #1f5f6b;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+
+    .nav-btn.active { background: #2c7a6e; color: white; }
+    .nav-btn:hover:not(.active) { background: #dfecf2; }
+
+    .page { display: none; animation: fadeIn 0.25s ease; }
+    .page.active-page { display: block; }
+    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+    .card-grid { display: flex; flex-wrap: wrap; }
+    .info-panel { flex: 2.2; padding: 38px 34px 42px 34px; }
+    .qr-panel {
+      flex: 1.1;
+      background: #fafcff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 32px 20px;
+      border-left: 1px solid #e2edf2;
+      text-align: center;
+    }
+
+    .role {
+      color: #2c7a6e;
+      font-weight: 700;
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      background: #e0f0ed;
+      display: inline-block;
+      padding: 5px 16px;
+      border-radius: 40px;
+      margin-bottom: 20px;
+    }
+
+    h1 { font-size: 2.2rem; font-weight: 800; color: #0b2b2f; margin-bottom: 12px; line-height: 1.2; }
+    .sub { font-size: 1rem; font-weight: 600; color: #2c5a66; margin-bottom: 20px; border-left: 4px solid #4ba89a; padding-left: 16px; }
+    .divider { height: 2px; background: linear-gradient(90deg, #cbdde6, transparent); margin: 20px 0 22px; }
+
+    .details { display: flex; flex-direction: column; gap: 12px; margin: 20px 0 0; }
+    .detail-item { display: flex; align-items: center; gap: 16px; background: #f6fafd; padding: 12px 20px; border-radius: 60px; }
+    .detail-icon { font-size: 1.4rem; min-width: 40px; text-align: center; }
+    .detail-text { font-weight: 500; word-break: break-word; font-size: 0.95rem; }
+    .detail-label { font-size: 0.7rem; font-weight: 700; text-transform: uppercase; color: #5f7f8c; margin-right: 8px; }
+
+    .expertise { margin-top: 24px; background: #eff5f8; border-radius: 32px; padding: 20px 24px; }
+    .expertise p { font-weight: 700; margin-bottom: 14px; font-size: 0.95rem; color: #1d5a63; }
+    .tags { display: flex; flex-wrap: wrap; gap: 10px; }
+    .tag { background: white; padding: 6px 16px; border-radius: 60px; font-size: 0.8rem; font-weight: 600; color: #1f5e6b; border: 1px solid #d7e6ed; }
+
+    .product-category { margin-top: 16px; }
+    .product-category strong { color: #0f2c39; display: block; margin: 12px 0 6px 0; font-size: 0.9rem; }
+    .sub-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-left: 8px; }
+    .sub-tag { background: #eef3f7; padding: 5px 14px; border-radius: 30px; font-size: 0.75rem; }
+
+    .stats-grid { display: flex; flex-wrap: wrap; gap: 20px; margin: 20px 0; justify-content: space-between; }
+    .stat-card { background: white; border-radius: 28px; padding: 20px; text-align: center; flex: 1; min-width: 120px; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
+    .stat-number { font-size: 2.2rem; font-weight: 800; color: #2c7a6e; }
+    .stat-label { font-size: 0.75rem; color: #5f7f8c; margin-top: 5px; }
+
+    .qr-code-container { background: white; padding: 12px; border-radius: 28px; box-shadow: 0 10px 20px -8px rgba(0,0,0,0.15); margin-bottom: 12px; }
+    #qrcode img, #qrcode canvas, #qrcode-page2 img, #qrcode-page2 canvas,
+    #qrcode-page3 img, #qrcode-page3 canvas, #qrcode-page4 img, #qrcode-page4 canvas,
+    #qrcode-page5 img, #qrcode-page5 canvas {
+      width: 140px; height: 140px; display: block; border-radius: 16px;
+    }
+    .qr-hint { font-size: 0.75rem; color: #5a7a88; background: #eef3f7; padding: 6px 14px; border-radius: 40px; }
+    .copy-btn { margin-top: 14px; background: none; border: 1px solid #bdd9e2; padding: 6px 14px; border-radius: 60px; font-size: 0.7rem; cursor: pointer; }
+
+    /* Плавающие кнопки связи */
+    .floating-buttons {
+      position: fixed;
+      bottom: 30px;
+      right: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      z-index: 1000;
+    }
+    .floating-buttons a {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 55px;
+      height: 55px;
+      border-radius: 50%;
+      font-size: 28px;
+      text-decoration: none;
+      transition: 0.2s;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    }
+    .floating-buttons a:hover { transform: scale(1.08); }
+    .btn-tg { background: #0088cc; color: white; }
+    .btn-wa { background: #25D366; color: white; }
+    .btn-phone { background: #2c7a6e; color: white; }
+    .btn-email { background: #ff9800; color: white; }
+
+    /* Стили для блока быстрой связи на странице контактов */
+    .quick-contact-block {
+      margin-top: 20px;
+      background: linear-gradient(135deg, #e8f3f0 0%, #dce9e6 100%);
+      border-radius: 28px;
+      padding: 18px 20px;
+    }
+    .quick-contact-block p {
+      font-weight: 700;
+      font-size: 1rem;
+      color: #1d5a63;
+      margin-bottom: 15px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .social-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 15px;
+      justify-content: flex-start;
+    }
+    .social-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: white;
+      padding: 8px 20px;
+      border-radius: 50px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.9rem;
+      transition: 0.2s;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+      border: 1px solid #d0e2e8;
+    }
+    .social-link:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
+    .social-link.tg { color: #0088cc; }
+    .social-link.wa { color: #25D366; }
+    .social-link.vk { color: #0077ff; }
+    .social-link span:first-child { font-size: 1.4rem; }
+
+    @media (max-width: 850px) {
+      .info-panel { padding: 28px 24px; }
+      h1 { font-size: 1.6rem; }
+      .card-grid { flex-direction: column; }
+      .qr-panel { border-left: none; border-top: 1px solid #e2edf2; flex-direction: row; flex-wrap: wrap; justify-content: center; gap: 20px; }
+    }
+    @media (max-width: 550px) {
+      .nav-btn { padding: 6px 12px; font-size: 0.7rem; }
+      .detail-item { padding: 8px 12px; }
+      .tag, .sub-tag { font-size: 0.7rem; }
+      .floating-buttons a { width: 48px; height: 48px; font-size: 24px; }
+      .stat-number { font-size: 1.6rem; }
+      .social-link { padding: 5px 14px; font-size: 0.75rem; }
+      .social-link span:first-child { font-size: 1.1rem; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="business-card">
+  <div class="brand-strip">
+    <span class="company">
+      <a href="https://www.ecohim.ru" target="_blank" style="text-decoration: none; display: block;">
+        <img src="https://www.ecohim.ru/local/templates/ekro/img/logo.svg" 
+             alt="ЭКРОСХИМ" 
+             style="height: 92px; width: auto; display: block; margin: 0 auto;"
+             onerror="this.onerror=null; this.parentElement.innerHTML='🧪 ЭКРОСХИМ';">
+      </a>
+    </span>
+  </div>
+
+  <div class="nav-buttons">
+    <button class="nav-btn active" data-page="page1">👤 Основное</button>
+    <button class="nav-btn" data-page="page2">🏢 О компании</button>
+    <button class="nav-btn" data-page="page3">📦 Продукция</button>
+    <button class="nav-btn" data-page="page4">🏆 Опыт и ГСО</button>
+    <button class="nav-btn" data-page="page5">📞 Контакты</button>
+  </div>
+
+  <div class="pages-container">
+    
+    <!-- СТРАНИЦА 1: Основное -->
+    <div id="page1" class="page active-page">
+      <div class="card-grid">
+        <div class="info-panel">
+          <h1>Попов Григорий Васильевич</h1>
+          <div class="sub">Начальник группы по разработке стандартных образцов ООО «ЭКРОСХИМ»</div>
+          <div class="expertise">
+            <p>📋 Разрабатываем и производим высокоточные стандартные образцы для:</p>
+            <div class="tags">
+              <span class="tag">Нефтехимической и химической промышленности</span>
+              <span class="tag">Гидрометеорологии</span>
+              <span class="tag">Санэпидемнадзора</span>
+              <span class="tag">Здравоохранения</span>
+              <span class="tag">Охраны окружающей среды</span>
+              <span class="tag">Экологического мониторинга</span>
+              <span class="tag">Испытания и промышленного контроля качества продукции</span>
+              <span class="tag">Аттестации и валидации методик измерений</span>
+              <span class="tag">Контроля точности результатов измерений</span>
+              <span class="tag">Контроля метрологических характеристик, поверки и калибровки средств измерений</span>
+              <span class="tag">Аттестации испытательного оборудования</span>
+            </div>
+          </div>
+        </div>
+        <div class="qr-panel">
+          <div class="qr-title">📲 QR-код визитки</div>
+          <div class="qr-code-container"><div id="qrcode"></div></div>
+          <div class="qr-hint">Наведите камеру для контакта</div>
+          <button class="copy-btn" id="copyUrlBtn">📋 Скопировать ссылку</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- СТРАНИЦА 2: О компании -->
+    <div id="page2" class="page">
+      <div class="card-grid">
+        <div class="info-panel">
+          <h1>ООО «ЭКРОСХИМ»</h1>
+          <div class="sub">Крупнейший российский производитель</div>
+          <div class="divider"></div>
+          <div class="detail-item" style="margin-bottom: 12px;">
+            <span class="detail-icon">📄</span>
+            <span class="detail-text">ООО «ЭКРОСХИМ» – крупнейший российский производитель общелабораторного и аналитического оборудования, лабораторной мебели, ГСО, лабораторной посуды и изделий из пластмассы.</span>
+          </div>
+          <div class="detail-item" style="margin-bottom: 12px;">
+            <span class="detail-icon">⚙️</span>
+            <span class="detail-text">Компания осуществляет разработку, производство и продажу оборудования, мебели, посуды, расходных материалов для нефтяных, химико-аналитических, экологических, медицинских, фармацевтических, учебных лабораторий.</span>
+          </div>
+          <div class="detail-item">
+            <span class="detail-icon">🏗️</span>
+            <span class="detail-text">«ЭКРОСХИМ» занимается комплексным оснащением научно-исследовательских и производственных лабораторий, а также учебных лабораторных классов.</span>
+          </div>
+        </div>
+        <div class="qr-panel">
+          <div class="qr-title">📲 QR-код визитки</div>
+          <div class="qr-code-container"><div id="qrcode-page2"></div></div>
+          <button class="copy-btn" id="copyUrlBtn2">📋 Копировать ссылку</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- СТРАНИЦА 3: Продукция -->
+    <div id="page3" class="page">
+      <div class="card-grid">
+        <div class="info-panel">
+          <div class="role">📦 Продукция компании</div>
+          <h1>Ассортимент</h1>
+          <div class="sub">Полный цикл для лабораторий</div>
+          <div class="divider"></div>
+          <div class="product-category"><strong>🔬 Лабораторное оборудование и приборы</strong>
+            <div class="sub-tags"><span class="sub-tag">Спектрофотометры и аксессуары</span><span class="sub-tag">Рентгеновское аналитическое оборудование</span><span class="sub-tag">Вискозиметры стеклянные капиллярные ЭКРОС</span><span class="sub-tag">Дозирующие устройства и наконечники</span></div>
+          </div>
+          <div class="product-category"><strong>🧪 Химическая продукция</strong>
+            <div class="sub-tags"><span class="sub-tag">ГСО в нефтехимической промышленности</span><span class="sub-tag">ГСО экотоксикантов</span><span class="sub-tag">Готовые буферные растворы и индикаторная бумага</span><span class="sub-tag">Готовые волюмометрические растворы</span><span class="sub-tag">Стандарт-титры</span></div>
+          </div>
+          <div class="product-category"><strong>🪑 Лабораторная мебель и посуда</strong>
+            <div class="sub-tags"><span class="sub-tag">Мебель для лабораторий</span><span class="sub-tag">Лабораторная посуда из стекла и пластика</span><span class="sub-tag">Изделия из пластмассы</span></div>
+          </div>
+          <div class="expertise">
+            <p>✅ Сертификация и качество</p>
+            <div class="tags"><span class="tag">Паспорта ГСО</span><span class="tag">Свидетельства</span><span class="tag">Метрологический контроль</span></div>
+          </div>
+        </div>
+        <div class="qr-panel">
+          <div class="qr-title">📦 Каталог</div>
+          <div class="qr-code-container"><div id="qrcode-page3"></div></div>
+          <button class="copy-btn" id="copyUrlBtn3">📋 Скопировать ссылку</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- СТРАНИЦА 4: Опыт и ГСО -->
+    <div id="page4" class="page">
+      <div class="card-grid">
+        <div class="info-panel">
+          <div class="role">🏆 Опыт и достижения</div>
+          <h1>Лидер в производстве ГСО</h1>
+          <div class="sub">Более 20 лет на рынке стандартных образцов</div>
+          <div class="stats-grid">
+            <div class="stat-card"><div class="stat-number">500+</div><div class="stat-label">Разработанных ГСО</div></div>
+            <div class="stat-card"><div class="stat-number">50+</div><div class="stat-label">Типов экотоксикантов</div></div>
+            <div class="stat-card"><div class="stat-number">1000+</div><div class="stat-label">Довольных клиентов</div></div>
+            <div class="stat-card"><div class="stat-number">№1</div><div class="stat-label">В России по номенклатуре ГСО</div></div>
+          </div>
+          <div class="expertise">
+            <p>🏅 Наши преимущества в области ГСО</p>
+            <div class="tags">
+              <span class="tag">Полный цикл разработки</span>
+              <span class="tag">Аттестация по ГОСТ</span>
+              <span class="tag">Прослеживаемость к эталонам</span>
+              <span class="tag">Индивидуальные заказы</span>
+              <span class="tag">Межлабораторные сличения</span>
+              <span class="tag">Метрологическая поддержка</span>
+            </div>
+          </div>
+          <div class="detail-item" style="margin-top: 15px;">
+            <span class="detail-icon">📊</span>
+            <span class="detail-text">ЭКРОСХИМ занимает лидирующие позиции в производстве государственных стандартных образцов для нефтехимии, экотоксикантов и метрологического обеспечения. Ежегодно расширяем номенклатуру и внедряем новые типы ГСО под требования заказчиков.</span>
+          </div>
+        </div>
+        <div class="qr-panel">
+          <div class="qr-title">📲 QR-код визитки</div>
+          <div class="qr-code-container"><div id="qrcode-page4"></div></div>
+          <button class="copy-btn" id="copyUrlBtn4">📋 Скопировать ссылку</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- СТРАНИЦА 5: Контакты с красивым блоком быстрой связи -->
+    <div id="page5" class="page">
+      <div class="card-grid">
+        <div class="info-panel">
+          <div class="role">📞 Контактная информация</div>
+          <h1>Попов Григорий Васильевич</h1>
+          <div class="sub">Начальник группы по разработке стандартных образцов</div>
+          <div class="divider"></div>
+          <div class="details">
+            <div class="detail-item"><span class="detail-icon">📧</span><span class="detail-text"><span class="detail-label">Личный E-mail</span> popovg.v@yandex.ru</span></div>
+            <div class="detail-item"><span class="detail-icon">🏢</span><span class="detail-text"><span class="detail-label">Рабочий E-mail</span> popov@ecohim.ru</span></div>
+            <div class="detail-item"><span class="detail-icon">📞</span><span class="detail-text"><span class="detail-label">Сотовый</span> +7 (951) 464-68-88</span></div>
+            <div class="detail-item"><span class="detail-icon">📞</span><span class="detail-text"><span class="detail-label">Рабочий телефон</span> +7 (812) 448-28-48</span></div>
+            <div class="detail-item"><span class="detail-icon">📠</span><span class="detail-text"><span class="detail-label">Телефон/Факс</span> (812) 322-9600, 449-3122(23)</span></div>
+            <div class="detail-item"><span class="detail-icon">📍</span><span class="detail-text"><span class="detail-label">Юридический адрес</span> Россия, 196006, г. Санкт-Петербург, ул. Коли Томчака д. 25, литера Ж</span></div>
+            <div class="detail-item"><span class="detail-icon">🏭</span><span class="detail-text"><span class="detail-label">Производственная площадка</span> г. Санкт-Петербург, 27-я линия В.О., д. 6, корп. 2</span></div>
+            <div class="detail-item"><span class="detail-icon">🌐</span><span class="detail-text"><span class="detail-label">Сайт компании</span> www.ecohim.ru</span></div>
+          </div>
+          
+          <!-- Блок быстрой связи (красивый, с цветными значками) -->
+          <div class="quick-contact-block">
+            <p>📱 Быстрая связь</p>
+            <div class="social-links">
+              <a href="https://wa.me/79514646888" class="social-link wa" target="_blank">
+                <span>💬</span> <span>WhatsApp</span>
+              </a>
+              <a href="https://t.me/grigorii_vas" class="social-link tg" target="_blank">
+                <span>📱</span> <span>Telegram</span>
+              </a>
+              <a href="https://vk.com/id67718010" class="social-link vk" target="_blank">
+                <span>📱</span> <span>ВКонтакте</span>
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="qr-panel">
+          <div class="qr-title">📲 QR-код визитки</div>
+          <div class="qr-code-container"><div id="qrcode-page5"></div></div>
+          <button class="copy-btn" id="copyUrlBtn5">📋 Скопировать ссылку</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- ФУТЕР ПОЛНОСТЬЮ УБРАН -->
+</div>
+
+<!-- Плавающие кнопки быстрой связи -->
+<div class="floating-buttons">
+  <a href="https://t.me/grigorii_vas" class="btn-tg" target="_blank" title="Telegram">📱</a>
+  <a href="https://wa.me/79514646888" class="btn-wa" target="_blank" title="WhatsApp">💬</a>
+  <a href="tel:+79514646888" class="btn-phone" title="Позвонить">📞</a>
+  <a href="mailto:popov@ecohim.ru" class="btn-email" title="Написать">✉️</a>
+</div>
+
+<script>
+  function getCurrentPageUrl() { return window.location.href; }
+  let currentUrl = getCurrentPageUrl();
+
+  function createQRCode(containerId) {
+    const container = document.getElementById(containerId);
+    if (!container) return;
+    container.innerHTML = "";
+    try {
+      new QRCode(container, { text: currentUrl, width: 140, height: 140, colorDark: "#0a2e36", colorLight: "#ffffff", correctLevel: QRCode.CorrectLevel.M });
+    } catch(e) { container.innerHTML = `<div style="padding:8px;">⚠️ QR error</div>`; }
+  }
+
+  window.addEventListener('DOMContentLoaded', () => {
+    createQRCode('qrcode');
+    createQRCode('qrcode-page2');
+    createQRCode('qrcode-page3');
+    createQRCode('qrcode-page4');
+    createQRCode('qrcode-page5');
+
+    const btns = document.querySelectorAll('.nav-btn');
+    const pages = document.querySelectorAll('.page');
+    btns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const pageId = btn.getAttribute('data-page');
+        btns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        pages.forEach(page => page.classList.remove('active-page'));
+        document.getElementById(pageId).classList.add('active-page');
+      });
+    });
+
+    const copyButtons = ['copyUrlBtn', 'copyUrlBtn2', 'copyUrlBtn3', 'copyUrlBtn4', 'copyUrlBtn5'];
+    copyButtons.forEach(id => {
+      const btn = document.getElementById(id);
+      if (btn) btn.addEventListener('click', () => {
+        navigator.clipboard.writeText(currentUrl).then(() => {
+          const original = btn.innerHTML;
+          btn.innerHTML = "✅ Скопировано!";
+          setTimeout(() => btn.innerHTML = original, 1500);
+        }).catch(() => alert("Ошибка копирования"));
+      });
+    });
+  });
+</script>
+</body>
+</html>
