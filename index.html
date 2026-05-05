@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <title>Григорий Попов | ГСО ЭКРОСХИМ</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700&display=swap" rel="stylesheet">
-  <script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
@@ -20,7 +19,7 @@
       padding: 30px 20px;
     }
     .business-card {
-      max-width: 1400px;
+      max-width: 1300px;
       width: 100%;
       background: #ffffff;
       border-radius: 56px;
@@ -62,17 +61,7 @@
     @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
     .card-grid { display: flex; flex-wrap: wrap; }
     .info-panel { flex: 2.2; padding: 38px 34px 42px 34px; }
-    .qr-panel {
-      flex: 1.1;
-      background: #fafcff;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      padding: 32px 20px;
-      border-left: 1px solid #e2edf2;
-      text-align: center;
-    }
+    /* Боковая панель полностью убрана */
     .role {
       color: #2c7a6e;
       font-weight: 700;
@@ -103,9 +92,6 @@
     .stat-card { background: white; border-radius: 28px; padding: 20px; text-align: center; flex: 1; min-width: 140px; max-width: 200px; box-shadow: 0 2px 10px rgba(0,0,0,0.05); margin: 0 auto; }
     .stat-number { font-size: 1.8rem; font-weight: 800; color: #2c7a6e; }
     .stat-label { font-size: 0.8rem; color: #5f7f8c; margin-top: 5px; }
-    .qr-code-container { background: white; padding: 6px; border-radius: 20px; box-shadow: 0 4px 10px -4px rgba(0,0,0,0.1); margin-bottom: 6px; }
-    .qr-code-container img, .qr-code-container svg, #qrcode img, #qrcode canvas { width: 80px !important; height: 80px !important; display: block; border-radius: 12px; }
-    .qr-hint { font-size: 0.6rem; color: #5a7a88; background: #eef3f7; padding: 2px 8px; border-radius: 40px; }
     .floating-buttons {
       position: fixed;
       bottom: 30px;
@@ -158,25 +144,25 @@
     .social-icon.vk { background-color: #0077FF; background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white"><path d="M21.573 6.813c.082-.262 0-.448-.38-.448h-2.532c-.316 0-.463.165-.541.35 0 0-.636 1.552-1.537 2.56-.29.291-.424.383-.582.383-.08 0-.197-.092-.197-.352v-2.48c0-.316-.093-.448-.366-.448h-3.975c-.21 0-.335.155-.335.305 0 .32.474.396.523 1.299v1.962c0 .428-.077.506-.246.506-.425 0-1.458-1.558-2.07-3.341-.12-.353-.243-.493-.56-.493h-2.53c-.354 0-.425.165-.425.35 0 .327.445 1.947 2.07 4.09 1.083 1.568 2.61 2.419 4.002 2.419.832 0 .936-.187.936-.508v-1.172c0-.354.075-.424.327-.424.186 0 .505.093 1.25.68.842.842.98 1.218 1.453 1.218h2.532c.354 0 .531-.187.429-.555-.112-.347-.514-.848-1.047-1.44-.29-.33-.724-.686-.857-.861-.18-.22-.128-.33 0-.53 0 0 1.514-2.132 1.672-2.857z"/></svg>'); }
     .social-icon.email { background-color: #FF9800; background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>'); }
     
-    /* Стили для сертификатов (страница 4) — увеличены, расстояние между фото увеличено */
+    /* Стили для сертификатов (страница 4) — адаптивные для мобильных */
     .certificates { 
       display: flex; 
       flex-wrap: wrap; 
-      gap: 60px; 
-      margin-top: 40px; 
+      gap: 30px; 
+      margin-top: 30px; 
       justify-content: center; 
       align-items: flex-start;
     }
     .cert-item { 
       text-align: center; 
       flex: 1; 
-      min-width: 320px; 
+      min-width: 280px; 
       display: flex;
       flex-direction: column;
       align-items: center;
     }
     .cert-item img { 
-      max-width: 450px; 
+      max-width: 100%;
       width: 100%;
       border-radius: 20px; 
       box-shadow: 0 8px 20px rgba(0,0,0,0.15); 
@@ -203,19 +189,18 @@
       text-align: center;
       font-weight: 600;
     }
-/* Фото на первой странице — квадрат, лицо видно полностью */
+    /* Фото на первой странице — квадрат с круглыми углами */
     .photo { margin-bottom: 15px; cursor: pointer; text-align: center; }
     .photo img { 
-  max-width: 320px; 
-  width: 100%;
-  height: auto;
-  aspect-ratio: 2 / 3;
-  object-fit: cover;
-  object-position: top 18% center;
-  border-radius: 24px; 
-  border: 3px solid #2c7a6e; 
-  transition: 0.2s;
-}
+      max-width: 320px; 
+      width: 100%;
+      height: 380px;
+      object-fit: cover;
+      object-position: top center;
+      border-radius: 24px; 
+      border: 3px solid #2c7a6e; 
+      transition: 0.2s;
+    }
     .photo img:hover { transform: scale(1.02); }
     .footer {
       background: #f1f6fa;
@@ -266,31 +251,52 @@
       font-size: 0.85rem;
       border: 1px solid #d7e6ed;
     }
-    /* Дополнительный стиль для раздела "Наши преимущества" на странице 4 */
     .advantages-block {
       margin-bottom: 30px;
+    }
+    /* Ссылка-кнопка как на странице 3 */
+    .catalog-link {
+      margin-top: 25px;
+      text-align: center;
+    }
+    .catalog-link .tag {
+      display: inline-block;
+      background: #2c7a6e;
+      color: white;
+      border: none;
+      padding: 12px 28px;
+      font-size: 1rem;
+    }
+    .catalog-link .tag:hover {
+      background: #1f5e6b;
+      transform: translateY(-2px);
     }
     @media (max-width: 850px) {
       .info-panel { padding: 28px 24px; }
       h1 { font-size: 1.6rem; }
       .card-grid { flex-direction: column; }
-      .photo img { max-width: 300px; }
+      .photo img { max-width: 280px; height: 340px; }
       .stat-card { min-width: 120px; }
       .cert-item { min-width: 260px; }
-      .cert-item img { max-width: 320px; }
     }
     @media (max-width: 550px) {
       .nav-btn { padding: 5px 8px; font-size: 0.65rem; }
-      .detail-item { padding: 8px 16px; width: 100%; }
+      .detail-item { padding: 8px 16px; width: 100%; min-width: auto; }
       .floating-buttons a { width: 44px; height: 44px; }
-      .photo img { max-width: 260px; }
+      .photo img { max-width: 260px; height: 300px; object-position: top 12% center; }
       .social-icon { width: 48px; height: 48px; }
-      .cert-item img { max-width: 260px; }
+      .cert-item img { max-width: 100%; }
       .service-card strong { font-size: 1rem; }
       .service-card p { font-size: 0.85rem; }
       .catalog-section h3 { font-size: 1rem; }
       .catalog-list span { font-size: 0.7rem; }
-      .certificates { gap: 30px; }
+      .certificates { gap: 25px; }
+      .expertise { padding: 16px 18px; }
+      .tags .tag { font-size: 0.7rem; padding: 5px 12px; }
+      .stats-grid { gap: 10px; }
+      .stat-card { padding: 12px; min-width: 100px; }
+      .stat-number { font-size: 1.3rem; }
+      .stat-label { font-size: 0.65rem; }
     }
   </style>
 </head>
@@ -317,195 +323,166 @@
 
   <div class="pages-container">
     
-    <!-- СТР 1: фото квадрат, лицо видно, текст по центру, добавлена строка -->
+    <!-- СТР 1: фото добавлено после заголовка -->
     <div id="page1" class="page active-page">
-      <div class="card-grid">
-        <div class="info-panel">
-          <h1>Попов Григорий Васильевич</h1>
-          <div class="sub">Начальник группы разработки стандартных образцов ООО «ЭКРОСХИМ»</div>
-          <div class="sub" style="font-size: 1rem; color: #4ba89a; border-left: none;">Разработка, производство и аттестация стандартных образцов</div>
-          <div class="expertise"><p>📋 Разрабатываем и производим высокоточные стандартные образцы для:</p>
-            <div class="tags">
-              <span class="tag">Нефтяных и нефтеперерабатывающих компаний</span>
-              <span class="tag">Аналитических и испытательных лабораторий</span>
-              <span class="tag">Научных центров</span>
-              <span class="tag">Химической промышленности</span>
-              <span class="tag">Гидрометеорологии</span>
-              <span class="tag">Санэпидемнадзора</span>
-              <span class="tag">Здравоохранения</span>
-              <span class="tag">Охраны окружающей среды</span>
-              <span class="tag">Экологического мониторинга</span>
-              <span class="tag">Испытания и контроля качества</span>
-              <span class="tag">Аттестации и валидации методик</span>
-              <span class="tag">Контроля точности измерений</span>
-              <span class="tag">Поверки и калибровки СИ</span>
-              <span class="tag">Аттестации испытательного оборудования</span>
-            </div>
-          </div>
+      <div class="info-panel">
+        <h1>Попов Григорий Васильевич</h1>
+        <div class="photo" id="mainPhoto" onclick="openModal()">
+          <img src="foto.jpg" alt="Попов Григорий Васильевич">
         </div>
-        <div class="qr-panel">
-          <div class="photo" onclick="window.open('foto.jpg','_blank')"><img src="foto.jpg" alt="Попов Григорий Васильевич"></div>
+        <div class="sub">Начальник группы разработки стандартных образцов ООО «ЭКРОСХИМ»</div>
+        <div class="sub" style="font-size: 1rem; color: #4ba89a; border-left: none;">Разработка, производство и аттестация стандартных образцов</div>
+        <div class="expertise"><p>📋 Разрабатываем и производим высокоточные стандартные образцы для:</p>
+          <div class="tags">
+            <span class="tag">Нефтяных и нефтеперерабатывающих компаний</span>
+            <span class="tag">Аналитических и испытательных лабораторий</span>
+            <span class="tag">Научных центров</span>
+            <span class="tag">Химической промышленности</span>
+            <span class="tag">Гидрометеорологии</span>
+            <span class="tag">Санэпидемнадзора</span>
+            <span class="tag">Здравоохранения</span>
+            <span class="tag">Охраны окружающей среды</span>
+            <span class="tag">Экологического мониторинга</span>
+            <span class="tag">Испытания и контроля качества</span>
+            <span class="tag">Аттестации и валидации методик</span>
+            <span class="tag">Контроля точности измерений</span>
+            <span class="tag">Поверки и калибровки СИ</span>
+            <span class="tag">Аттестации испытательного оборудования</span>
+          </div>
         </div>
       </div>
     </div>
 
-    <!-- СТР 2: текст по центру -->
+    <!-- СТР 2: без QR-кода -->
     <div id="page2" class="page">
-      <div class="card-grid">
-        <div class="info-panel">
-          <h1>ООО «ЭКРОСХИМ»</h1>
-          <div class="sub">Крупнейший российский производитель</div>
-          <div class="divider"></div>
-          <div class="details">
-            <div class="detail-item"><span class="detail-icon">📄</span><span class="detail-text">ООО «ЭКРОСХИМ» – крупнейший российский производитель общелабораторного и аналитического оборудования, лабораторной мебели, ГСО, лабораторной посуды и изделий из полипропилена и полиэтилена</span></div>
-            <div class="detail-item"><span class="detail-icon">⚙️</span><span class="detail-text">Современные научно-производственные подразделения и лабораторные центры, имеющие в своем составе высококвалифицированных специалистов, позволяют предприятию успешно развиваться, постоянно расширять ассортимент выпускаемой продукции, повышать качество популярных позиций номенклатуры и долгие годы занимать лидирующие позиции на рынке</span></div>
-            <div class="detail-item"><span class="detail-icon">🏗️</span><span class="detail-text">Комплексное оснащение научно-исследовательских, производственных и учебных лабораторий</span></div>
-          </div>
-          <div class="expertise"><p>🌐 Перейти на сайт:</p><div class="tags"><a href="https://www.ecohim.ru/" target="_blank"><span class="tag">www.ecohim.ru</span></a></div></div>
+      <div class="info-panel">
+        <h1>ООО «ЭКРОСХИМ»</h1>
+        <div class="sub">Крупнейший российский производитель</div>
+        <div class="divider"></div>
+        <div class="details">
+          <div class="detail-item"><span class="detail-icon">📄</span><span class="detail-text">ООО «ЭКРОСХИМ» – крупнейший российский производитель общелабораторного и аналитического оборудования, лабораторной мебели, ГСО, лабораторной посуды и изделий из полипропилена и полиэтилена</span></div>
+          <div class="detail-item"><span class="detail-icon">⚙️</span><span class="detail-text">Современные научно-производственные подразделения и лабораторные центры, имеющие в своем составе высококвалифицированных специалистов, позволяют предприятию успешно развиваться, постоянно расширять ассортимент выпускаемой продукции, повышать качество популярных позиций номенклатуры и долгие годы занимать лидирующие позиции на рынке</span></div>
+          <div class="detail-item"><span class="detail-icon">🏗️</span><span class="detail-text">Комплексное оснащение научно-исследовательских, производственных и учебных лабораторий</span></div>
         </div>
-        <div class="qr-panel">
-          <div class="qr-title">📲 QR-код на сайт</div>
-          <div class="qr-code-container"><img src="qr-ecohim.svg" style="width:80px;height:80px;" onerror="this.style.display='none'"></div>
-        </div>
+        <div class="expertise"><p>🌐 Перейти на сайт:</p><div class="tags"><a href="https://www.ecohim.ru/" target="_blank"><span class="tag">www.ecohim.ru</span></a></div></div>
       </div>
     </div>
 
-    <!-- СТР 3: Продукция -->
+    <!-- СТР 3: без QR-кода -->
     <div id="page3" class="page">
-      <div class="card-grid">
-        <div class="info-panel">
-          <div class="role">📦 Продукция компании</div>
-          <h1>Ассортимент</h1>
-          <div class="sub">Полный цикл для вашей лаборатории</div>
-          <div class="divider"></div>
-          <div class="expertise"><p>🔬 Лабораторное оборудование и приборы марок «ЭКРОС», «ПЭ» и «ES»</p><div class="product-list"><span>Дифрактометры</span><span>Анализаторы серы</span><span>Концентратомеры</span><span>Титраторы Фишера</span><span>Вискозиметры</span><span>Аквадистиляторы</span><span>Оборудование для анализа нефти и нефтепродуктов</span><span>Сушильные шкафы</span><span>Термостаты</span><span>Ротационные испарители</span><span>Центрифуги</span><span>Мешалки и шейкеры</span><span>Спектрофотометры</span><span>Дозирующие устройства и наконечники</span></div></div>
-          <div class="expertise"><p>🧪 Химическая продукция</p><div class="product-list"><span>ГСО в нефтепереработке</span><span>ГСО экотоксикантов</span><span>Буферные растворы</span><span>Волюмометрические растворы</span><span>Стандарт-титры</span></div></div>
-          <div class="expertise"><p>🪑 Лабораторная мебель и посуда</p><div class="product-list"><span>Мебель серий «ЭКРОС» и «ЭВРИКА»</span><span>Посуда из полипропилена</span><span>Посуда из полиэтилена</span></div></div>
-          <div class="expertise"><p>📦 Смотреть весь каталог:</p><div class="tags"><a href="https://www.ecohim.ru/catalog/" target="_blank"><span class="tag">Перейти в каталог</span></a></div></div>
-        </div>
-        <div class="qr-panel">
-          <div class="qr-title">📦 QR-код на каталог</div>
-          <div class="qr-code-container"><img src="qr-catalog.svg" style="width:80px;height:80px;" onerror="this.style.display='none'"></div>
-        </div>
+      <div class="info-panel">
+        <div class="role">📦 Продукция компании</div>
+        <h1>Ассортимент</h1>
+        <div class="sub">Полный цикл для вашей лаборатории</div>
+        <div class="divider"></div>
+        <div class="expertise"><p>🔬 Лабораторное оборудование и приборы марок «ЭКРОС», «ПЭ» и «ES»</p><div class="product-list"><span>Дифрактометры</span><span>Анализаторы серы</span><span>Концентратомеры</span><span>Титраторы Фишера</span><span>Вискозиметры</span><span>Аквадистиляторы</span><span>Оборудование для анализа нефти и нефтепродуктов</span><span>Сушильные шкафы</span><span>Термостаты</span><span>Ротационные испарители</span><span>Центрифуги</span><span>Мешалки и шейкеры</span><span>Спектрофотометры</span><span>Дозирующие устройства и наконечники</span></div></div>
+        <div class="expertise"><p>🧪 Химическая продукция</p><div class="product-list"><span>ГСО в нефтепереработке</span><span>ГСО экотоксикантов</span><span>Буферные растворы</span><span>Волюмометрические растворы</span><span>Стандарт-титры</span></div></div>
+        <div class="expertise"><p>🪑 Лабораторная мебель и посуда</p><div class="product-list"><span>Мебель серий «ЭКРОС» и «ЭВРИКА»</span><span>Посуда из полипропилена</span><span>Посуда из полиэтилена</span></div></div>
+        <div class="expertise"><p>📦 Смотреть весь каталог:</p><div class="tags"><a href="https://www.ecohim.ru/catalog/" target="_blank"><span class="tag">Перейти в каталог</span></a></div></div>
       </div>
     </div>
 
-    <!-- СТР 4: Сертификаты и преимущества -->
+    <!-- СТР 4: адаптирована под мобильные устройства -->
     <div id="page4" class="page">
-      <div class="card-grid">
-        <div class="info-panel">
-          <div class="role">🏭 Сертификаты и преимущества</div>
-          <h1>От уникальных СО до безупречной аттестации</h1>
-          <div class="sub">Более 30 лет на рынке ГСО</div>
-          <div class="stats-grid">
-            <div class="stat-card"><div class="stat-number">200+</div><div class="stat-label">Утвержденных типов ГСО</div></div>
-            <div class="stat-card"><div class="stat-number">100+</div><div class="stat-label">СОП</div></div>
-            <div class="stat-card"><div class="stat-number">ТОП-5</div><div class="stat-label">В РФ по выпуску ГСО</div></div>
-          </div>
-          
-          <!-- Блок "Наши преимущества" с визуальным разделением -->
-          <div class="advantages-block">
-            <div class="expertise"><p>🏅 Наши преимущества</p><div class="tags"><span class="tag">Полный цикл разработки</span><span class="tag">Прослеживаемость к ГЭТ</span><span class="tag">Широкая номенклатура</span><span class="tag">Собственное производство</span><span class="tag">Индивидуальные заказы</span><span class="tag">Импортозамещение стандартных образцов</span></div></div>
-          </div>
-          
-          <!-- Отдельный блок для "Мощная научно-исследовательская база" -->
-          <div class="detail-item"><span class="detail-icon">🔬</span><span class="detail-text">Мощная научно-исследовательская база, более сотни патентов. Обслуживаем крупнейшие предприятия, госучреждения, ВУЗы. Гарантируем стабильное качество и сертификаты на каждую партию</span></div>
-          
-          <div class="expertise"><p>📜 Сертификаты и аккредитация</p>
-           <p style="margin-top:12px; white-space: nowrap;">✅ Два сертифицированных лабораторных центра выпускают продукцию в соответствии с ISO 17034:2016</p>
-            <p style="margin-top:12px;">✅ Качество соответствует ISO 9001:2015, гарантируется многоступенчатым контролем</p>
-            <p style="margin-top:12px;">✅ Полный цикл — от разработки методики до серийного выпуска с паспортом</p>
-          </div>
-          <div class="certificates">
-            <div class="cert-item">
-              <img src="iso9001.jpg" alt="ISO 9001:2015" onclick="window.open('iso9001.jpg','_blank')">
-              <div class="cert-title">ISO 9001:2015</div>
-            </div>
-            <div class="cert-item">
-              <img src="iso17034.jpg" alt="ISO 17034:2016" onclick="window.open('iso17034.jpg','_blank')">
-              <div class="cert-title">ISO 17034:2016</div>
-            </div>
-          </div>
-          <div style="text-align: center;">
-            <button class="download-btn" onclick="downloadAll()">📥 Скачать сертификаты (PDF+JPG)</button>
-          </div>
-          <script>function downloadAll(){ window.open('certificate.pdf','_blank'); window.open('iso17034.jpg','_blank'); }</script>
+      <div class="info-panel">
+        <div class="role">🏭 Сертификаты и преимущества</div>
+        <h1>От уникальных СО до безупречной аттестации</h1>
+        <div class="sub">Более 30 лет на рынке ГСО</div>
+        <div class="stats-grid">
+          <div class="stat-card"><div class="stat-number">200+</div><div class="stat-label">Утвержденных типов ГСО</div></div>
+          <div class="stat-card"><div class="stat-number">100+</div><div class="stat-label">СОП</div></div>
+          <div class="stat-card"><div class="stat-number">ТОП-5</div><div class="stat-label">В РФ по выпуску ГСО</div></div>
         </div>
-        <div class="qr-panel"></div>
+        
+        <div class="advantages-block">
+          <div class="expertise"><p>🏅 Наши преимущества</p><div class="tags"><span class="tag">Полный цикл разработки</span><span class="tag">Прослеживаемость к ГЭТ</span><span class="tag">Широкая номенклатура</span><span class="tag">Собственное производство</span><span class="tag">Индивидуальные заказы</span><span class="tag">Импортозамещение стандартных образцов</span></div></div>
+        </div>
+        
+        <div class="detail-item"><span class="detail-icon">🔬</span><span class="detail-text">Мощная научно-исследовательская база, более сотни патентов. Обслуживаем крупнейшие предприятия, госучреждения, ВУЗы. Гарантируем стабильное качество и сертификаты на каждую партию</span></div>
+        
+        <div class="expertise"><p>📜 Сертификаты и аккредитация</p>
+         <p style="margin-top:12px;">✅ Два сертифицированных лабораторных центра выпускают продукцию в соответствии с ISO 17034:2016</p>
+          <p style="margin-top:12px;">✅ Качество соответствует ISO 9001:2015, гарантируется многоступенчатым контролем</p>
+          <p style="margin-top:12px;">✅ Полный цикл — от разработки методики до серийного выпуска с паспортом</p>
+        </div>
+        <div class="certificates">
+          <div class="cert-item">
+            <img src="iso9001.jpg" alt="ISO 9001:2015" onclick="window.open('iso9001.jpg','_blank')">
+            <div class="cert-title">ISO 9001:2015</div>
+          </div>
+          <div class="cert-item">
+            <img src="iso17034.jpg" alt="ISO 17034:2016" onclick="window.open('iso17034.jpg','_blank')">
+            <div class="cert-title">ISO 17034:2016</div>
+          </div>
+        </div>
+        <div style="text-align: center;">
+          <button class="download-btn" onclick="downloadAll()">📥 Скачать сертификаты (PDF+JPG)</button>
+        </div>
+        <script>function downloadAll(){ window.open('certificate.pdf','_blank'); window.open('iso17034.jpg','_blank'); }</script>
       </div>
     </div>
 
-    <!-- СТР 5: Каталог СО с иконками -->
+    <!-- СТР 5: без QR-кода, добавлена кнопка-ссылка -->
     <div id="page5" class="page">
-      <div class="card-grid">
-        <div class="info-panel">
-          <h1>📋 Каталог стандартных образцов</h1>
-          <div class="catalog-grid">
-            <div class="catalog-section">
-              <h3>🌿 Стандартные образцы экотоксикантов</h3>
-              <div class="catalog-list"><span>ГСО состава неорганических веществ (катионы, анионы)</span><span>ГСО для определения свойств воды</span><span>ГСО состава органических веществ</span><span>СОП (ПАУ, хлорированные фенолы, диоксины, хроматография)</span></div>
-            </div>
-            <div class="catalog-section">
-              <h3>⛽ Стандартные образцы для нефти и нефтепродуктов</h3>
-              <div class="catalog-list"><span>ГСО физико-химических свойств нефтепродуктов</span><span>ГСО состава нефтепродуктов</span><span>ГСО для определения специфических компонентов</span><span>ГСО общего назначения: универсальные эталоны</span></div>
-            </div>
-            <div class="catalog-section">
-              <h3>🧪 Дополнительная продукция</h3>
-              <div class="catalog-list"><span>Стандарт-титры</span><span>Волюмометрические растворы</span><span>Буферные растворы</span><span>Реактивы для анализов</span></div>
-            </div>
+      <div class="info-panel">
+        <h1>📋 Каталог стандартных образцов</h1>
+        <div class="catalog-grid">
+          <div class="catalog-section">
+            <h3>🌿 Стандартные образцы экотоксикантов</h3>
+            <div class="catalog-list"><span>ГСО состава неорганических веществ (катионы, анионы)</span><span>ГСО для определения свойств воды</span><span>ГСО состава органических веществ</span><span>СОП (ПАУ, хлорированные фенолы, диоксины, хроматография)</span></div>
+          </div>
+          <div class="catalog-section">
+            <h3>⛽ Стандартные образцы для нефти и нефтепродуктов</h3>
+            <div class="catalog-list"><span>ГСО физико-химических свойств нефтепродуктов</span><span>ГСО состава нефтепродуктов</span><span>ГСО для определения специфических компонентов</span><span>ГСО общего назначения: универсальные эталоны</span></div>
+          </div>
+          <div class="catalog-section">
+            <h3>🧪 Дополнительная продукция</h3>
+            <div class="catalog-list"><span>Стандарт-титры</span><span>Волюмометрические растворы</span><span>Буферные растворы</span><span>Реактивы для анализов</span></div>
           </div>
         </div>
-        <div class="qr-panel">
-          <div class="qr-title">📲 QR-код на химию</div>
-          <div class="qr-code-container"><img src="qr-chemistry.svg" style="width:80px;height:80px;" onerror="this.style.display='none'"></div>
+        <div class="catalog-link">
+          <p>📦 Смотреть каталог химической продукции:</p>
+          <a href="https://www.ecohim.ru/catalog/khimicheskaya-produktsiya" target="_blank" class="tag" style="display: inline-block; background: #2c7a6e; color: white; text-decoration: none;">Перейти в каталог химической продукции</a>
         </div>
       </div>
     </div>
 
-    <!-- СТР 6: Услуги -->
+    <!-- СТР 6: убрано слово "Услуги" -->
     <div id="page6" class="page">
-      <div class="card-grid">
-        <div class="info-panel">
-          <div class="role">🛠️ Услуги</div>
-          <h1>Метрологическая поддержка</h1>
-          <div class="service-card"><strong>🧪 Разработка ГСО под заказ</strong><p>Индивидуальные стандартные образцы</p></div>
-          <div class="service-card"><strong>📐 Разработка методик измерений</strong><p>Создание методик</p></div>
-          <div class="service-card"><strong>🔄 Постановка МСИ</strong><p>Межлабораторные сравнительные испытания</p></div>
-          <div class="service-card"><strong>🎓 Обучение персонала</strong><p>Поможем с выбором методологии, проконсультируем и поддержим</p></div>
-          <div class="service-card"><strong>📞 Консультации по ГСО</strong><p>Помощь в выборе и применении СО</p></div>
-          <div class="service-card"><strong>🔧 Подбор оборудования</strong><p>Подбор приборов и мебели</p></div>
-        </div>
-        <div class="qr-panel"></div>
+      <div class="info-panel">
+        <h1>Метрологическая поддержка</h1>
+        <div class="service-card"><strong>🧪 Разработка ГСО под заказ</strong><p>Индивидуальные стандартные образцы</p></div>
+        <div class="service-card"><strong>📐 Разработка методик измерений</strong><p>Создание методик</p></div>
+        <div class="service-card"><strong>🔄 Постановка МСИ</strong><p>Межлабораторные сравнительные испытания</p></div>
+        <div class="service-card"><strong>🎓 Обучение персонала</strong><p>Поможем с выбором методологии, проконсультируем и поддержим</p></div>
+        <div class="service-card"><strong>📞 Консультации по ГСО</strong><p>Помощь в выборе и применении СО</p></div>
+        <div class="service-card"><strong>🔧 Подбор оборудования</strong><p>Подбор приборов и мебели</p></div>
       </div>
     </div>
 
-    <!-- СТР 7: Контакты -->
+    <!-- СТР 7: без шапки "Контактная информация" -->
     <div id="page7" class="page">
-      <div class="card-grid">
-        <div class="info-panel">
-          <div class="role">📞 Контактная информация</div>
-          <h1>Попов Григорий Васильевич</h1>
-          <div class="sub">Начальник группы разработки стандартных образцов</div>
-          <div class="details">
-            <div class="detail-item"><span class="detail-icon">📧</span><span class="detail-text"><span class="detail-label">Личный E-mail</span> popovg.v@yandex.ru</span></div>
-            <div class="detail-item"><span class="detail-icon">🏢</span><span class="detail-text"><span class="detail-label">Рабочий E-mail</span> popov@ecohim.ru</span></div>
-            <div class="detail-item"><span class="detail-icon">📞</span><span class="detail-text"><span class="detail-label">Сотовый</span> +7 (951) 464-68-88</span></div>
-            <div class="detail-item"><span class="detail-icon">📞</span><span class="detail-text"><span class="detail-label">Рабочий</span> +7 (812) 448-28-48</span></div>
-            <div class="detail-item"><span class="detail-icon">📠</span><span class="detail-text"><span class="detail-label">Факс</span> (812) 322-9600, 449-3122(23)</span></div>
-            <div class="detail-item"><span class="detail-icon">📍</span><span class="detail-text"><span class="detail-label">ЮРИДИЧЕСКИЙ АДРЕС</span> Россия, 196006, г. Санкт-Петербург, ул. Коли Томчака д. 25, литера Ж</span></div>
-            <div class="detail-item"><span class="detail-icon">🏭</span><span class="detail-text"><span class="detail-label">ПРОИЗВОДСТВЕННАЯ ПЛОЩАДКА</span> г. Санкт-Петербург, 27-я линия В.О., д. 6, корп. 2</span></div>
-            <div class="detail-item"><span class="detail-icon">🌐</span><span class="detail-text"><span class="detail-label">Сайт компании</span> <a href="https://www.ecohim.ru" target="_blank" style="color: #1f5f6b; text-decoration: none; border-bottom: 1px dashed;">www.ecohim.ru</a></span></div>
-          </div>
-          <div class="quick-contact-block"><p>📱 Быстрая связь</p>
-            <div class="social-icons">
-              <a href="https://wa.me/79514646888" class="social-icon wa" target="_blank" title="WhatsApp"></a>
-              <a href="https://t.me/grigorii_vas" class="social-icon tg" target="_blank" title="Telegram"></a>
-              <a href="https://vk.com/id67718010" class="social-icon vk" target="_blank" title="ВКонтакте"></a>
-              <a href="mailto:popov@ecohim.ru" class="social-icon email" target="_blank" title="Email"></a>
-            </div>
+      <div class="info-panel">
+        <h1>Попов Григорий Васильевич</h1>
+        <div class="sub">Начальник группы разработки стандартных образцов</div>
+        <div class="details">
+          <div class="detail-item"><span class="detail-icon">📧</span><span class="detail-text"><span class="detail-label">Личный E-mail</span> popovg.v@yandex.ru</span></div>
+          <div class="detail-item"><span class="detail-icon">🏢</span><span class="detail-text"><span class="detail-label">Рабочий E-mail</span> popov@ecohim.ru</span></div>
+          <div class="detail-item"><span class="detail-icon">📞</span><span class="detail-text"><span class="detail-label">Сотовый</span> +7 (951) 464-68-88</span></div>
+          <div class="detail-item"><span class="detail-icon">📞</span><span class="detail-text"><span class="detail-label">Рабочий</span> +7 (812) 448-28-48</span></div>
+          <div class="detail-item"><span class="detail-icon">📠</span><span class="detail-text"><span class="detail-label">Факс</span> (812) 322-9600, 449-3122(23)</span></div>
+          <div class="detail-item"><span class="detail-icon">📍</span><span class="detail-text"><span class="detail-label">ЮРИДИЧЕСКИЙ АДРЕС</span> Россия, 196006, г. Санкт-Петербург, ул. Коли Томчака д. 25, литера Ж</span></div>
+          <div class="detail-item"><span class="detail-icon">🏭</span><span class="detail-text"><span class="detail-label">ПРОИЗВОДСТВЕННАЯ ПЛОЩАДКА</span> г. Санкт-Петербург, 27-я линия В.О., д. 6, корп. 2</span></div>
+          <div class="detail-item"><span class="detail-icon">🌐</span><span class="detail-text"><span class="detail-label">Сайт компании</span> <a href="https://www.ecohim.ru" target="_blank" style="color: #1f5f6b; text-decoration: none; border-bottom: 1px dashed;">www.ecohim.ru</a></span></div>
+        </div>
+        <div class="quick-contact-block"><p>📱 Быстрая связь</p>
+          <div class="social-icons">
+            <a href="https://wa.me/79514646888" class="social-icon wa" target="_blank" title="WhatsApp"></a>
+            <a href="https://t.me/grigorii_vas" class="social-icon tg" target="_blank" title="Telegram"></a>
+            <a href="https://vk.com/id67718010" class="social-icon vk" target="_blank" title="ВКонтакте"></a>
+            <a href="mailto:popov@ecohim.ru" class="social-icon email" target="_blank" title="Email"></a>
           </div>
         </div>
-        <div class="qr-panel"></div>
       </div>
     </div>
   </div>
@@ -522,19 +499,47 @@
   <a href="mailto:popov@ecohim.ru" class="btn-email" title="Написать"></a>
 </div>
 
+<!-- Модальное окно для увеличенного фото -->
+<div id="imageModal" class="modal" onclick="closeModal()">
+  <img class="modal-content" id="modalImg">
+</div>
+
+<style>
+  .modal {
+    display: none;
+    position: fixed;
+    z-index: 9999;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.9);
+    cursor: pointer;
+  }
+  .modal-content {
+    margin: auto;
+    display: block;
+    max-width: 90%;
+    max-height: 90%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 16px;
+  }
+</style>
+
 <script>
+  function openModal() {
+    document.getElementById('imageModal').style.display = 'block';
+    document.getElementById('modalImg').src = 'foto.jpg';
+  }
+  function closeModal() {
+    document.getElementById('imageModal').style.display = 'none';
+  }
   function getCurrentPageUrl() { return window.location.href; }
   let currentUrl = getCurrentPageUrl();
-  function createQRCode(containerId) {
-    const container = document.getElementById(containerId);
-    if (!container) return;
-    container.innerHTML = "";
-    try {
-      new QRCode(container, { text: currentUrl, width: 80, height: 80, colorDark: "#0a2e36", colorLight: "#ffffff", correctLevel: QRCode.CorrectLevel.M });
-    } catch(e) { container.innerHTML = `<div style="padding:6px;">⚠️ QR error</div>`; }
-  }
   window.addEventListener('DOMContentLoaded', () => {
-    createQRCode('qrcode');
     const btns = document.querySelectorAll('.nav-btn');
     const pages = document.querySelectorAll('.page');
     btns.forEach(btn => btn.addEventListener('click', () => {
